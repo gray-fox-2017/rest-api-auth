@@ -88,7 +88,6 @@ methods.signup = (req, res) => {
   let pwd = req.body.password
   let salt = bCrypt.genSaltSync(saltRounds)
   let generateHash = bCrypt.hashSync(pwd, salt)
-
   db.User.create({
     name: req.body.name,
     username: req.body.username,
@@ -96,15 +95,13 @@ methods.signup = (req, res) => {
     email: req.body.email
   })
   .then(response => {
+    console.log(response);
     console.log('Signup data user success');
     res.json(response)
   })
   .catch(Sequelize.ValidationError, function (err) {
       // respond with validation errors
       res.send(err.message);
-  })
-  .catch(err => {
-    res.json(err)
   })
 } //signup
 

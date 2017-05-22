@@ -3,7 +3,6 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const index = require('./routes/index')
-require('dotenv').config()
 
 // NOTE: set
 app.set('port', process.env.PORT || 3000)
