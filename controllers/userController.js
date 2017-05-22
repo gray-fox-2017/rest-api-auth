@@ -2,6 +2,7 @@ const db = require('../models')
 const bCrypt = require('bcrypt');
 let methods = {}
 const saltRounds = 10;
+const jwt = require('jsonwebtoken')
 
 methods.getAll = (req, res) => {
   db.User.findAll()
@@ -81,6 +82,39 @@ methods.signup = (req, res) => {
   })
   .catch(err => {
     res.json({err})
+  })
+}
+
+methods.signin = (req, res) => {
+  db.User.findOne({
+    where: {
+      username: req.body.username
+    }
+  })
+  .then(response => {
+
+    let pwdHash = req.body.password
+    console.log('Tesss');
+    console.log(bCrypt.compareSync(pwdHash, response.password));
+    if (bCrypt.compareSync(pwdHash, response.password)) {
+      let data = Object.assign({}, response.toJSON())
+        console.log(data);
+        delete data.password
+
+        let token = jwt.sign(data, 'secret', {
+            expiresIn: '1h'
+        })
+        res.json({
+            message: 'Login is Successful',
+            token,
+            username: data.username,
+            role: data.role
+        })
+    } else {
+        res.json({
+            message: 'Your password is not match'
+        })
+    }
   })
 }
 
