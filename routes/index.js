@@ -10,5 +10,6 @@ router.get('/api/users', userController.getAll)
 router.get('/api/user/:id', userController.getById)
 router.post('/api/users', userController.insertOne)
 router.put('/api/user/:id', userController.updateById)
+router.delete('/api/user/:id', userController.deleteById)
 
 module.exports = router

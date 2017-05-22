@@ -49,5 +49,16 @@ methods.updateById = (req, res) => {
   })
 }
 
+methods.deleteById = (req, res) => {
+  db.User.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(response => {
+    console.log('Delete data user success');
+    res.json(response)
+  })
+}
 
 module.exports = methods
