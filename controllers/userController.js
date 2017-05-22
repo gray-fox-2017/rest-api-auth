@@ -28,7 +28,17 @@ methods.getById = (req, res) => {
 }   //getById
 
 methods.insertOne = (req, res) => {
-  db.User.create(req.body)
+  let pwd = req.body.password
+  let salt = bCrypt.genSaltSync(saltRounds)
+  let generateHash = bCrypt.hashSync(pwd, salt)
+
+  db.User.create({
+    name: req.body.name,
+    username: req.body.username,
+    password: generateHash,
+    email: req.body.email,
+    role: req.body.role
+  })
   .then(response => {
     console.log('Insert data user success');
     res.json(response)
@@ -39,7 +49,17 @@ methods.insertOne = (req, res) => {
 }   // insertOne
 
 methods.updateById = (req, res) => {
-  db.User.update(req.body, {
+  let pwd = req.body.password
+  let salt = bCrypt.genSaltSync(saltRounds)
+  let generateHash = bCrypt.hashSync(pwd, salt)
+
+  db.User.update({
+    name: req.body.name,
+    username: req.body.username,
+    password: generateHash,
+    email: req.body.email,
+    role: req.body.role
+  }, {
     where: {
       id: req.params.id
     }
