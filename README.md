@@ -23,3 +23,5 @@ npm start
 npm run dev
 
 Access the website via http://localhost:3000 or API via http://localhost:3000/api
+You can access this app with this url:
+https://simple-rest-api-crud.herokuapp.com/ | https://git.heroku.com/simple-rest-api-crud.git
