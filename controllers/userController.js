@@ -4,6 +4,7 @@ let methods = {}
 const saltRounds = 10;
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const Sequelize = require('sequelize')
 
 methods.getAll = (req, res) => {
   db.User.findAll()
@@ -98,8 +99,12 @@ methods.signup = (req, res) => {
     console.log('Signup data user success');
     res.json(response)
   })
+  .catch(Sequelize.ValidationError, function (err) {
+      // respond with validation errors
+      res.send(err.message);
+  })
   .catch(err => {
-    res.json({err})
+    res.json(err)
   })
 } //signup
 
