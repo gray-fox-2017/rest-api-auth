@@ -3,6 +3,7 @@ const bCrypt = require('bcrypt');
 let methods = {}
 const saltRounds = 10;
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 methods.getAll = (req, res) => {
   db.User.findAll()
@@ -83,7 +84,7 @@ methods.signup = (req, res) => {
   .catch(err => {
     res.json({err})
   })
-}
+} //signup
 
 methods.signin = (req, res) => {
   db.User.findOne({
@@ -101,7 +102,7 @@ methods.signin = (req, res) => {
         console.log(data);
         delete data.password
 
-        let token = jwt.sign(data, 'secret', {
+        let token = jwt.sign(data, process.env.SECRETKEY, {
             expiresIn: '1h'
         })
         res.json({
@@ -116,6 +117,6 @@ methods.signin = (req, res) => {
         })
     }
   })
-}
+} //signin
 
 module.exports = methods
