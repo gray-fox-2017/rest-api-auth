@@ -4,6 +4,8 @@
 
 ##List of basic routes:
 
+Please register first to access all api except signup.
+
 | Routes | HTTP | Description |
 | ----- | ----- | ----- |
 | https://simple-rest-api-crud.herokuapp.com/api/users | GET | Get all the users |

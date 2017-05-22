@@ -36,8 +36,7 @@ methods.insertOne = (req, res) => {
     name: req.body.name,
     username: req.body.username,
     password: generateHash,
-    email: req.body.email,
-    role: req.body.role
+    email: req.body.email
   })
   .then(response => {
     console.log('Insert data user success');
@@ -57,8 +56,7 @@ methods.updateById = (req, res) => {
     name: req.body.name,
     username: req.body.username,
     password: generateHash,
-    email: req.body.email,
-    role: req.body.role
+    email: req.body.email
   }, {
     where: {
       id: req.params.id
@@ -94,8 +92,7 @@ methods.signup = (req, res) => {
     name: req.body.name,
     username: req.body.username,
     password: generateHash,
-    email: req.body.email,
-    role: req.body.role
+    email: req.body.email
   })
   .then(response => {
     console.log('Signup data user success');
