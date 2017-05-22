@@ -3,9 +3,9 @@ const router = express.Router()
 const userController = require('../controllers/userController')
 const jwtHelpers = require('../helpers/check_token')
 
-// router.get('/', (req, res) => {
-//   res.send('Hello')
-// })
+router.get('/', (req, res) => {
+  res.send('Ini halaman REST API CRUD, you can read the instruction from https://github.com/uciarahito/rest-api-auth')
+})
 
 router.get('/api/users', jwtHelpers.check_token_admin, userController.getAll)
 router.get('/api/user/:id', jwtHelpers.check_token_user_admin, userController.getById)
