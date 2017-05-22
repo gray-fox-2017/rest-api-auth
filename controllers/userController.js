@@ -12,6 +12,17 @@ methods.getAll = (req, res) => {
   })
 }   // getAll
 
+methods.getById = (req, res) => {
+  db.User.findById(req.params.id)
+  .then(response => {
+    console.log('Get data user by id success');
+    res.json(response)
+  })
+  .catch(err => {
+    res.json({err})
+  })
+}   //getById
+
 methods.insertOne = (req, res) => {
   db.User.create(req.body)
   .then(response => {
@@ -21,6 +32,7 @@ methods.insertOne = (req, res) => {
   .catch(err => {
     res.json({err})
   })
-}
+}   // insertOne
+
 
 module.exports = methods
