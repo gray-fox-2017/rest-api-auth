@@ -34,5 +34,20 @@ methods.insertOne = (req, res) => {
   })
 }   // insertOne
 
+methods.updateById = (req, res) => {
+  db.User.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(response => {
+    console.log('Update data user success');
+    res.json(response)
+  })
+  .catch(err => {
+    res.json({err})
+  })
+}
+
 
 module.exports = methods
