@@ -1,5 +1,7 @@
 const db = require('../models')
+const bCrypt = require('bcrypt');
 let methods = {}
+const saltRounds = 10;
 
 methods.getAll = (req, res) => {
   db.User.findAll()
@@ -47,7 +49,7 @@ methods.updateById = (req, res) => {
   .catch(err => {
     res.json({err})
   })
-}
+}   // updateById
 
 methods.deleteById = (req, res) => {
   db.User.destroy({
@@ -58,6 +60,27 @@ methods.deleteById = (req, res) => {
   .then(response => {
     console.log('Delete data user success');
     res.json(response)
+  })
+} //deleteById
+
+methods.signup = (req, res) => {
+  let pwd = req.body.password
+  let salt = bCrypt.genSaltSync(saltRounds)
+  let generateHash = bCrypt.hashSync(pwd, salt)
+
+  db.User.create({
+    name: req.body.name,
+    username: req.body.username,
+    password: generateHash,
+    email: req.body.email,
+    role: req.body.role
+  })
+  .then(response => {
+    console.log('Signup data user success');
+    res.json(response)
+  })
+  .catch(err => {
+    res.json({err})
   })
 }
 

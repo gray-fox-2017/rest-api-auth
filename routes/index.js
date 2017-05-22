@@ -12,4 +12,6 @@ router.post('/api/users', userController.insertOne)
 router.put('/api/user/:id', userController.updateById)
 router.delete('/api/user/:id', userController.deleteById)
 
+router.post('/api/signup', userController.signup)
+
 module.exports = router
