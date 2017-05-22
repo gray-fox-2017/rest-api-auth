@@ -1,5 +1,8 @@
-var db = require('../models');
-var bcrypt = require('bcrypt');
+require('dotenv').config();
+const db = require('../models');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+let secret = process.env.SECRET_KEY;
 
 function getAllUsers(req, res) {
   db.Students.findAll({
@@ -24,7 +27,6 @@ function createUser(req, res) {
     gender : req.body.gender,
     age : req.body.age,
     address : req.body.address,
-    phone : req.body.phone,
     email : req.body.email,
     username : req.body.username,
     password : hash,
@@ -54,7 +56,6 @@ function updateUser(req, res) {
       gender : req.body.gender || student.gender,
       age : req.body.age || student.age,
       address : req.body.address || student.address,
-      phone : req.body.phone || student.phone,
       email : req.body.email || student.email,
       username : req.body.username || student.username,
       password : hash || student.password,
@@ -75,7 +76,6 @@ function signUp(req, res) {
     gender : req.body.gender,
     age : req.body.age,
     address : req.body.address,
-    phone : req.body.phone,
     email : req.body.email,
     username : req.body.username,
     password : req.body.password,
@@ -85,6 +85,25 @@ function signUp(req, res) {
   .catch(err => res.send(err.message));
 }
 
+function signIn(req, res) {
+  db.Students.find({
+    where: {
+      username : req.body.username
+    }
+  })
+  .then(user => {
+    bcrypt.compare(req.body.password, user.password, function(err, result) {
+      if(result) {
+        let token = jwt.sign({role: user.role, id: user.id}, secret);
+        res.send(token);
+      } else {
+        res.send("Wrong password..")
+      }
+    })
+  })
+  .catch(err => res.send(err.message));
+}
+
 module.exports = {
-  getAllUsers, getSingleUser, createUser, deleteUser, updateUser, signUp
+  getAllUsers, getSingleUser, createUser, deleteUser, updateUser, signUp, signIn
 };
