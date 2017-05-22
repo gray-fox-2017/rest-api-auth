@@ -2,7 +2,7 @@
 
 # REST API
 
-##List of basic routes:
+## List of basic routes:
 
 Please register first to access all api except signup.
 
@@ -13,7 +13,6 @@ Please register first to access all api except signup.
 | https://simple-rest-api-crud.herokuapp.com/api/users      | POST | Create a user |
 | https://simple-rest-api-crud.herokuapp.com/api/users/:id  | DELETE | Delete a user |
 | https://simple-rest-api-crud.herokuapp.com/api/users/:id  | PUT | Update a user with new info |
-
 | https://simple-rest-api-crud.herokuapp.com/api/signin  | POST | Login to the app |
 | https://simple-rest-api-crud.herokuapp.com/api/signup  | POST | Register to the app |
 
