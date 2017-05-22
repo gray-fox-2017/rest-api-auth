@@ -71,6 +71,8 @@ function updateUser(req, res) {
 }
 
 function signUp(req, res) {
+  let hash = bcrypt.hashSync(req.body.password, 8);
+
   db.Students.create({
     name : req.body.name,
     gender : req.body.gender,
@@ -78,7 +80,7 @@ function signUp(req, res) {
     address : req.body.address,
     email : req.body.email,
     username : req.body.username,
-    password : req.body.password,
+    password : hash,
     role : req.body.role
   })
   .then(() => res.send(`Create user success!!`))
